@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ফোন নম্বর ডিরেক্টরি এবং সার্চার</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for database container */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 text-white min-h-screen flex flex-col justify-between font-sans">
+
+    <!-- Header Section -->
+    <header class="text-center py-8 px-4 bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 shadow-lg">
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-md">
+            📞 DKWIN HACK ACCOUNT
+        </h1>
+        <p class="text-pink-100 mt-2 text-sm md:text-base font-medium">
+            ৩,৪৫০টি একটিভ ফোন নম্বরের রঙিন তালিকা এবং ইনস্ট্যান্ট সার্চ সিস্টেম
+        </p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8 flex-grow">
+        
+        <!-- Left Side: Interactive Search & Status Panel -->
+        <div class="lg:col-span-1 flex flex-col gap-6">
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 shadow-2xl">
+                <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500 mb-4">
+                    🔍 নম্বর খুঁজুন (Search Box)
+                </h2>
+                
+                <div class="relative">
+                    <input type="text" id="searchInput" maxlength="11"
+                        class="w-full bg-slate-800/80 border-2 border-indigo-500/50 rounded-2xl px-5 py-4 text-xl font-mono text-center tracking-widest focus:ring-4 focus:ring-pink-500/50 focus:border-pink-500 focus:outline-none transition duration-300 placeholder-slate-500 text-yellow-300"
+                        placeholder="017XXXXXXXX">
+                    <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+                        <!-- Search Icon -->
+                        <svg class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <p class="text-xs text-slate-400 mt-2 text-center">আপনার কাঙ্ক্ষিত ১১ ডিজিটের মোবাইল নম্বরটি লিখে চেক করুন।</p>
+            </div>
+
+            <!-- Real-time Result Banner -->
+            <div id="resultBanner" class="bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[180px] text-center shadow-xl transition-all duration-300">
+                <span class="text-5xl mb-3">🧐</span>
+                <p class="text-slate-400 font-medium">কোনো নম্বর টাইপ করে খোঁজ শুরু করুন...</p>
+            </div>
+
+            <!-- Short Info Card -->
+            <div class="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-500/20 rounded-3xl p-6">
+                <h3 class="font-bold text-pink-300 mb-2">💡 সাহায্যকারী তথ্য:</h3>
+                <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                    <li>ডাটাবেজে মোট <span class="text-amber-300 font-semibold">৩,৪৫০টি</span> নম্বর যুক্ত রয়েছে।</li>
+                    <li>আপনার দেওয়া <span class="text-emerald-300 font-semibold">01720908745</span> এবং <span class="text-emerald-300 font-semibold">01771029044</span> নম্বর দুটি এই তালিকায় অন্তর্ভুক্ত আছে।</li>
+                    <li>অপারেটর অনুযায়ী নম্বরগুলো রঙিন গ্রিডে সাজানো হয়েছে।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Beautiful Colorful Number List Grid -->
+        <div class="lg:col-span-2 bg-slate-900/60 border border-indigo-500/20 rounded-3xl p-6 shadow-2xl flex flex-col">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+                    📋 নম্বর ডাটাবেজ তালিকা
+                </h2>
+                <!-- Active Count Badge -->
+                <div class="bg-indigo-900/80 border border-indigo-500/40 text-indigo-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider">
+                    মোট নম্বর: <span id="totalBadge" class="text-yellow-400">০</span> টি
+                </div>
+            </div>
+
+            <!-- Numbers Box -->
+            <div id="numbersContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                <!-- Javascript will load colorful chips here -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-slate-800 text-xs text-slate-500 bg-slate-950/80">
+        ডিজাইন ও ডেভেলপমেন্ট - HTML5, Tailwind CSS এবং Vanilla JavaScript
+    </footer>
+
+    <script>
+        // আপনার দেওয়া নির্দিষ্ট দুটি নম্বর
+        const targetNumbers = ['01720908745', '01771029044'];
+        const totalNumbersCount = 3450;
+        const phoneSet = new Set(targetNumbers);
+
+        // বাংলাদেশি মোবাইল অপারেটরের কোডসমূহ
+        const prefixes = ['013', '014', '015', '016', '017', '018', '019'];
+
+        // ৩,৪৫০টি ইউনিক নম্বর ডায়নামিক উপায়ে তৈরি করা
+        while (phoneSet.size < totalNumbersCount) {
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            let suffix = '';
+            for (let i = 0; i < 8; i++) {
+                suffix += Math.floor(Math.random() * 10);
+            }
+            phoneSet.add(prefix + suffix);
+        }
+
+        // সমস্ত নম্বর অ্যারেতে কনভার্ট করে ক্রমানুসারে সাজানো
+        const allNumbersList = Array.from(phoneSet).sort();
+
+        // DOM Elements
+        const numbersContainer = document.getElementById('numbersContainer');
+        const searchInput = document.getElementById('searchInput');
+        const resultBanner = document.getElementById('resultBanner');
+        const totalBadge = document.getElementById('totalBadge');
+
+        // সংখ্যাগুলোকে বাংলা অক্ষরে রূপান্তরের জন্য সাধারণ ফাংশন
+        function toBengaliNumber(num) {
+            const englishToBengali = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+            return num.toString().split('').map(digit => englishToBengali[digit] || digit).join('');
+        }
+
+        totalBadge.textContent = toBengaliNumber(allNumbersList.length);
+
+        // অপারেটর অনুসারে বিভিন্ন কালার থিম সেট করার ফাংশন (Colorful UX)
+        function getColorClasses(number) {
+            // যদি আমাদের নির্দিষ্ট কোনো একটি নম্বর হয়, তবে গোল্ডেন/ইনডিগো গ্লোয়িং কালার পাবে
+            if (targetNumbers.includes(number)) {
+                return 'bg-gradient-to-r from-amber-500 to-pink-500 text-white font-extrabold ring-4 ring-amber-400/50 animate-pulse shadow-lg border border-amber-300';
+            }
+
+            const prefix = number.slice(0, 3);
+            switch (prefix) {
+                case '017':
+                case '013': // Grameenphone (Green)
+                    return 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                case '018': // Robi (Red/Orange)
+                    return 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30';
+                case '019':
+                case '014': // Banglalink (Orange)
+                    return 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30';
+                case '015': // Teletalk (Teal/Cyan)
+                    return 'bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 border border-teal-500/30';
+                case '016': // Airtel (Pink/Magenta)
+                    return 'bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 border border-pink-500/30';
+                default:
+                    return 'bg-slate-800 text-slate-300 border border-slate-700';
+            }
+        }
+
+        // নম্বর তালিকা রেন্ডার করার ফাংশন
+        function renderNumbers(listToRender) {
+            numbersContainer.innerHTML = '';
+            
+            listToRender.forEach(number => {
+                const div = document.createElement('div');
+                const colorClasses = getColorClasses(number);
+                
+                div.className = `px-3 py-2.5 rounded-xl text-center font-mono font-semibold tracking-wider text-sm transition duration-200 cursor-pointer ${colorClasses}`;
+                div.textContent = number;
+
+                // লিস্টের কোনো নম্বরে ক্লিক করলে তা সার্চ বক্সে ইনপুট হবে
+                div.addEventListener('click', () => {
+                    searchInput.value = number;
+                    checkNumberExist(number);
+                });
+
+                numbersContainer.appendChild(div);
+            });
+        }
+
+        // প্রাথমিকভাবে ডাটাবেজের সব নম্বর রেন্ডার করা
+        renderNumbers(allNumbersList);
+
+        // সার্চ বক্স চেক করার মূল লজিক
+        function checkNumberExist(query) {
+            const cleanQuery = query.trim();
+
+            if (cleanQuery === '') {
+                // ডিফল্ট ব্যানার রিসেট
+                resultBanner.className = "bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[180px] text-center shadow-xl transition-all duration-300";
+                resultBanner.innerHTML = `
+                    <span class="text-5xl mb-3">🧐</span>
+                    <p class="text-slate-400 font-medium">কোনো নম্বর টাইপ করে খোঁজ শুরু করুন...</p>
+                `;
+                renderNumbers(allNumbersList);
+                return;
+            }
+
+            // আংশিক মিল থাকা সব নম্বর খুঁজে বের করে ডানপাশের গ্রিড আপডেট করা
+            const matchedList = allNumbersList.filter(num => num.includes(cleanQuery));
+            renderNumbers(matchedList);
+
+            // এক্সাক্ট বা নিখুঁত মিল চেক করা
+            const isExactMatch = allNumbersList.includes(cleanQuery);
+
+            if (isExactMatch) {
+                // নম্বরটি খুঁজে পাওয়া গেছে (সবুজ ও রঙিন ব্যানার)
+                resultBanner.className = "bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border-2 border-emerald-500 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[180px] text-center shadow-2xl scale-105 transition-all duration-300";
+                resultBanner.innerHTML = `
+                    <span class="text-5xl mb-3 animate-bounce">🎉</span>
+                    <h3 class="text-2xl font-black text-emerald-400">পেয়ে গেছি!</h3>
+                    <p class="text-white mt-1 font-mono font-bold tracking-widest text-lg">${cleanQuery}</p>
+                    <p class="text-emerald-300 text-xs mt-2">এই নম্বরটি আমাদের ডাটাবেজে Hack হয়েছে</p>
+                `;
+            } else {
+                // নম্বরটি খুঁজে পাওয়া যায়নি (লাল/গোলাপি ব্যানার)
+                resultBanner.className = "bg-gradient-to-br from-rose-500/20 to-red-600/20 border-2 border-rose-500 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[180px] text-center shadow-2xl transition-all duration-300";
+                resultBanner.innerHTML = `
+                    <span class="text-5xl mb-3">❌</span>
+                    <h3 class="text-2xl font-black text-rose-400">পাওয়া যায়নি!</h3>
+                    <p class="text-slate-300 mt-1 font-mono font-bold tracking-widest text-lg">${cleanQuery}</p>
+                    <p class="text-rose-300 text-xs mt-2">দুঃখিত, এই নম্বরটি আমাদের তালিকায় নেই।</p>
+                `;
+            }
+        }
+
+        // ইনপুটে টাইপ করার সাথে সাথে রিয়েল-টাইম সার্চিং
+        searchInput.addEventListener('input', (e) => {
+            // শুধুমাত্র সংখ্যা ইনপুট নেয়ার জন্য
+            const filteredValue = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = filteredValue;
+            checkNumberExist(filteredValue);
+        });
+    </script>
+</body>
+  </html>
